@@ -74,16 +74,16 @@ Crear un archivo en el servidor para el vhost
         SSLCertificateKeyFile   /var/www/SSLCert/server.key
     
     </VirtualHost>
+
     
+Crear el archivo quartup.ini.php en el directorio dev
+-----------------------------------------------------
+    Crear una copia del archivo quptmp.ini.php con el nombre quartup.ini.php dentro del directorio dev
+
 
 Habilitar el vhost
 ------------------
 
     sudo a2ensite docker-<nombre-usuario>.ssl.conf   
     sudo service apache2 restart
-
-
-Crear el archivo quartup.ini.php en el directorio dev
------------------------------------------------------
-    Crear una copia del archivo quptmp.ini.php con el nombre quartup.ini.php dentro del directorio dev
 
