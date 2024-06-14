@@ -81,6 +81,10 @@ Crear el archivo quartup.ini.php en el directorio dev
     Crear una copia del archivo quptmp.ini.php con el nombre quartup.ini.php dentro del directorio dev
 
 
+Copiar el archivo de tu dev QquupperfIntFile.json al directorio dev del docker
+
+
+
 Habilitar el vhost
 ------------------
 
