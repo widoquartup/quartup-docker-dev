@@ -57,14 +57,14 @@ Si abres vscode en la carpeta de la rama
 
 Modificar el archivo ./90-quartup.ini en la línea donde define el puerto para xdebug
 ------------------------------------------------------------------------------------
-xdebug.remote_port=9198
 
+    xdebug.remote_port=9198
 
 
 Para comenzar a trabajar con alguna de las ramas que tenemos:
-cd dev
-sv2 clone <nombre_rama> -d <nombre_rama>
-cd <nombre_rama>
+    cd dev
+    sv2 clone <nombre_rama> -d <nombre_rama>
+    cd <nombre_rama>
 
 Para crear el docker ejecutar:
     docker compose up -d
@@ -98,7 +98,7 @@ Crear un archivo en el servidor para el vhost
     
 Crear el archivo quartup.ini.php en el directorio dev
 -----------------------------------------------------
-    Crear una copia del archivo quptmp.ini.php con el nombre quartup.ini.php dentro del directorio dev
+Crear una copia del archivo quptmp.ini.php con el nombre quartup.ini.php dentro del directorio dev
 
 
 Copiar el archivo de tu dev QquupperfIntFile.json al directorio dev del docker
