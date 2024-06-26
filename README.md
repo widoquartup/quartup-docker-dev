@@ -25,7 +25,7 @@ Si abres vscode en la carpeta del repositorio docker
         "version": "0.2.0",
         "configurations": [
             {
-                "name": "1 Listen for Xdebug",
+                "name": "Xdebug en docker",
                 "type": "php",
                 "request": "launch",
                 "port": 9198, // <<<----- Cambiar por el código definido en el .env para debug
@@ -42,10 +42,10 @@ Si abres vscode en la carpeta de la rama
         "version": "0.2.0",
         "configurations": [
             {
-                "name": "1 Listen for Xdebug",
+                "name": "Xdebug en docker",
                 "type": "php",
                 "request": "launch",
-                "port": 9198, 
+                "port": 9198, // <<<----- Cambiar por el código definido en el .env para debug
                 "pathMappings": {
                     "/app/<nombre de la rama o carpeta>/": "${workspaceRoot}/"
                 }
