@@ -77,7 +77,7 @@ Si hacemos alguna modificación a la configuración del docker, podemos volver a
 Crear un archivo en el servidor para el vhost 
 ----------------------------------------------
 
-    etc/apache2/sites-available/docker-<nombre-usuario>.ssl.conf                                                                                          
+/etc/apache2/sites-available/docker-<nombre-usuario>.ssl.conf                                                                                          
 
     <VirtualHost *:443>
         ServerName docker-<nombre-usuario>.quartup.net
