@@ -19,7 +19,7 @@ Modificar en el archivo ./.env
 
 Crear el archivo ./.vscode/launch.json
 ------------------------------------------
-    
+    Si abres vscode en la carpeta del repositorio docker
     {
         "version": "0.2.0",
         "configurations": [
@@ -34,6 +34,24 @@ Crear el archivo ./.vscode/launch.json
             }
         ]
     }
+
+    Si abres vscode en la carpeta de la rama
+    {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "1 Listen for Xdebug",
+                "type": "php",
+                "request": "launch",
+                "port": 9198, 
+                "pathMappings": {
+                    "/app/<nombre de la rama o carpeta>/": "${workspaceRoot}/"
+                }
+            }
+        ]
+    }
+
+    
 
 Modificar el archivo ./90-quartup.ini en la línea donde define el puerto para xdebug
 ------------------------------------------------------------------------------------
