@@ -62,11 +62,13 @@ Modificar el archivo ./90-quartup.ini en la línea donde define el puerto para x
 
 
 Para comenzar a trabajar con alguna de las ramas que tenemos:
+
     cd dev
     sv2 clone <nombre_rama> -d <nombre_rama>
     cd <nombre_rama>
 
 Para crear el docker ejecutar:
+
     docker compose up -d
 
 Si hacemos alguna modificación a la configuración del docker, podemos volver a generarlo con 
