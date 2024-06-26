@@ -13,14 +13,14 @@ Por ej devgdo es el usuario 98
 Modificar en el archivo ./.env
 ------------------------------
     
-    HTTP_PORT=8198
-    DEBUG_PORT=9189
-    USER_NAME=devgdo   <<--modificar esta variable para que cada imagen y contenedor tenga su nombre
+    HTTP_PORT=8198     <<<----- Cambiar por el puerto http que corresponda
+    DEBUG_PORT=9189    <<<----- Cambiar por el puerto debug que corresponda
+    USER_NAME=devgdo   <<--     Cambiar por el nombre de usuario para que cada imagen y contenedor tenga su nombre
     
 Modificar el archivo ./90-quartup.ini en la línea donde define el puerto para xdebug
 ------------------------------------------------------------------------------------
 
-    xdebug.remote_port=9198
+    xdebug.remote_port=9198 // <<<----- Cambiar por el código definido en el .env para debug
     
 Crear el archivo ./.vscode/launch.json
 ------------------------------------------
