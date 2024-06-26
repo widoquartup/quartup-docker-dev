@@ -86,8 +86,8 @@ Crear un archivo en el servidor para el vhost
         ErrorLog /home/<nombre-usuario>/docker/error.log
         CustomLog /home/<nombre-usuario>/docker/access.log combined
     
-        ProxyPass / http://localhost:8198/           <<----- cambiar puerto
-        ProxyPassReverse / http://localhost:8198/    <<----- cambiar puerto
+        ProxyPass / http://localhost:8198/           <<----- cambiar puerto http
+        ProxyPassReverse / http://localhost:8198/    <<----- cambiar puerto http
     
         SSLEngine on
         SSLCertificateFile      /var/www/SSLCert/server.bundle
