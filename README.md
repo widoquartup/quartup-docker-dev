@@ -19,7 +19,8 @@ Modificar en el archivo ./.env
 
 Crear el archivo ./.vscode/launch.json
 ------------------------------------------
-    Si abres vscode en la carpeta del repositorio docker
+Si abres vscode en la carpeta del repositorio docker
+
     {
         "version": "0.2.0",
         "configurations": [
@@ -35,7 +36,8 @@ Crear el archivo ./.vscode/launch.json
         ]
     }
 
-    Si abres vscode en la carpeta de la rama
+Si abres vscode en la carpeta de la rama
+
     {
         "version": "0.2.0",
         "configurations": [
