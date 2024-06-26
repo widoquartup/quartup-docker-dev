@@ -29,7 +29,7 @@ Crear el archivo ./.vscode/launch.json
                 "request": "launch",
                 "port": 9198, // <<<----- Cambiar por el código definido en el .env para debug
                 "pathMappings": {
-                    "/app/<nombre_rama>/": "${workspaceRoot}/dev/<nombre_rama>/"
+                    "/app/": "${workspaceRoot}/dev/"
                 }
             }
         ]
