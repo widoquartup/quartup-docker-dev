@@ -16,7 +16,12 @@ Modificar en el archivo ./.env
     HTTP_PORT=8198
     DEBUG_PORT=9189
     USER_NAME=devgdo   <<--modificar esta variable para que cada imagen y contenedor tenga su nombre
+    
+Modificar el archivo ./90-quartup.ini en la línea donde define el puerto para xdebug
+------------------------------------------------------------------------------------
 
+    xdebug.remote_port=9198
+    
 Crear el archivo ./.vscode/launch.json
 ------------------------------------------
 Si abres vscode en la carpeta del repositorio docker
@@ -53,12 +58,6 @@ Si abres vscode en la carpeta de la rama
         ]
     }
 
-    
-
-Modificar el archivo ./90-quartup.ini en la línea donde define el puerto para xdebug
-------------------------------------------------------------------------------------
-
-    xdebug.remote_port=9198
 
 
 Para comenzar a trabajar con alguna de las ramas que tenemos:
