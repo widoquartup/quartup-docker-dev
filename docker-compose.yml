@@ -13,6 +13,6 @@ services:
     volumes:
       - ./dev:/app
     container_name: docker-${USER_NAME}
-    network_mode: host
+    network_mode: "host"
     expose:
       - "${DEBUG_PORT}"

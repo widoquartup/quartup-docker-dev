@@ -40,6 +40,7 @@ RUN echo "        Require all granted" >> /etc/apache2/sites-available/000-defau
 RUN echo "    </Directory>" >> /etc/apache2/sites-available/000-default.conf
 RUN echo "</VirtualHost>" >> /etc/apache2/sites-available/000-default.conf
 
+RUN a2enmod rewrite
 RUN a2ensite 000-default.conf
 # Start Apache service
 RUN chmod 0775 /app
