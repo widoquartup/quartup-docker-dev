@@ -87,3 +87,9 @@ Habilitar el vhost
     sudo a2ensite docker-<nombre-usuario>.ssl.conf   
     sudo service apache2 restart
 
+
+Acceso al subdominio
+--------------------
+##Si no tienes registrado el subdominio docker-<nombre-usuario>.quartup.net puedes crear un acceso en el /etc/host (linux) 
+
+    95.217.59.110 docker-<nombre-usuario>.quartup.net

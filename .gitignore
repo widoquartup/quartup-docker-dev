@@ -2,9 +2,6 @@
 .vscode
 access.log
 error.log
-dev/php_errors.log
-dev/QquupperfIntFile.json
-dev/quartup.ini.php
 dev/*
 !dev/index.html
 !dev/QquupperfIntFile.json
