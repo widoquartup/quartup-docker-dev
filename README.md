@@ -89,7 +89,7 @@
 
 #### Para comenzar a trabajar con alguna de las ramas:
 
-    crear la/s rama/s con dentro del directorio quartup-dev-docker/dev
+    crear la/s rama/s dentro del directorio quartup-dev-docker/dev
 
     cd dev
     sv2 clone <nombre_rama> -d <nombre_rama>
