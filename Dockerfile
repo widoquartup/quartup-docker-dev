@@ -10,13 +10,24 @@ ENV HTTP_PORT=${HTTP_PORT}
 ENV DEBUG_PORT=${DEBUG_PORT}
 
 # Instalar dependencias
-RUN apt-get update && apt-get install -y libzip-dev zip libicu-dev g++ && rm -rf /var/lib/apt/lists/*
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    zip \
+    libicu-dev \
+    g++ \
+    libmagickwand-dev \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
 
 # Instalar extensiones de PHP
 RUN docker-php-ext-install pdo pdo_mysql mysqli zip bcmath
 
 # Instalar Xdebug
 RUN pecl channel-update pecl.php.net
+RUN pecl install imagick && \
+    docker-php-ext-enable imagick
+
 RUN pecl install xdebug-2.9.8
 
 RUN docker-php-ext-enable xdebug

@@ -7,10 +7,10 @@ services:
         DEBUG_PORT: ${DEBUG_PORT}
         USER_NAME: ${USER_NAME}
     ports:
-      - "${HTTP_PORT}:${HTTP_PORT}"
+      - "0.0.0.0:${HTTP_PORT}:${HTTP_PORT}"
+      - "0.0.0.0:${DEBUG_PORT}:${DEBUG_PORT}"
     volumes:
       - ./dev:/app
     container_name: docker-${USER_NAME}
-    network_mode: "host"
-    expose:
-      - "${DEBUG_PORT}"
+    network_mode: host
+
