@@ -1,5 +1,9 @@
 <?php
 
+
+ini_set('display_errors', 'off');
+error_reporting(E_ERROR);
+
 // nº de configuración del fichero 'quupconf', solo hay que cambiarla cuando hay varios working-copy del Quartup que usan la misma BBDD "general"
 $quup['num_config'] = 1;
 

@@ -10,23 +10,41 @@ ENV HTTP_PORT=${HTTP_PORT}
 ENV DEBUG_PORT=${DEBUG_PORT}
 
 # Instalar dependencias
-# Install dependencies
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
     libicu-dev \
     g++ \
     libmagickwand-dev \
+    wget \
+    git \
+    build-essential \
     --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y libssl-dev
+
+# Compilar e instalar librdkafka desde las fuentes
+RUN git clone https://github.com/edenhill/librdkafka.git \
+    && cd librdkafka \
+    && ./configure \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -rf librdkafka
+
 
 # Instalar extensiones de PHP
 RUN docker-php-ext-install pdo pdo_mysql mysqli zip bcmath
 
 # Instalar Xdebug
 RUN pecl channel-update pecl.php.net
+
 RUN pecl install imagick && \
     docker-php-ext-enable imagick
+
+RUN pecl install rdkafka-3.1.3 && \
+    docker-php-ext-enable rdkafka
 
 RUN pecl install xdebug-2.9.8
 
