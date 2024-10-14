@@ -1,3 +1,4 @@
+name: ${USER_NAME:-default}-project
 services:
   php:
     build: 
