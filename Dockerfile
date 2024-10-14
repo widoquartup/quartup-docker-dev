@@ -50,11 +50,15 @@ RUN pecl install xdebug-2.9.8
 
 RUN docker-php-ext-enable xdebug
 
+# RUN curl -s http://getcomposer.org/installer | php
+# RUN php composer.phar install
+
+
 # Crear directorio /app
 RUN mkdir -p /app
 
-# Crear usuario y grupo www-data
 
+# Crear usuario y grupo www-data
 # Establecer permisos
 RUN chown -R www-data:www-data /app
 

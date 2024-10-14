@@ -1,3 +1,4 @@
+name: docker-${USER_NAME}-project
 services:
   php:
     build: 
@@ -11,6 +12,7 @@ services:
       - "0.0.0.0:${DEBUG_PORT}:${DEBUG_PORT}"
     volumes:
       - ./dev:/app
+    image: docker-${USER_NAME}
     container_name: docker-${USER_NAME}
     network_mode: host
     deploy:
