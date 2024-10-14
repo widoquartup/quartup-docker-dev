@@ -50,31 +50,46 @@ RUN pecl install xdebug-2.9.8
 
 RUN docker-php-ext-enable xdebug
 
-# Crear directorio /app
-RUN mkdir -p /app
+# RUN curl -s http://getcomposer.org/installer | php
+# RUN php composer.phar install
 
-# Crear usuario y grupo www-data
 
-# Establecer permisos
+# Configurar directorio de logs y permisos
+RUN mkdir -p /app/logs
+RUN touch /app/logs/error.log
+RUN touch /app/logs/xdebug.log
 RUN chown -R www-data:www-data /app
+RUN chmod -R 755 /app
+RUN chmod 664 /app/logs/error.log
+RUN chmod 664 /app/logs/xdebug.log
 
 # Configurar Apache
 RUN echo "Listen ${HTTP_PORT}" > /etc/apache2/ports.conf
+# Configurar Apache vhost
 RUN echo "<VirtualHost *:${HTTP_PORT}>" > /etc/apache2/sites-available/000-default.conf
 RUN echo "    DocumentRoot /app" >> /etc/apache2/sites-available/000-default.conf
+RUN echo "    ErrorLog /app/logs/error.log" >> /etc/apache2/sites-available/000-default.conf
+RUN echo "    CustomLog /app/logs/access.log combined" >> /etc/apache2/sites-available/000-default.conf
 RUN echo "    <Directory /app>" >> /etc/apache2/sites-available/000-default.conf
 RUN echo "        Options FollowSymLinks" >> /etc/apache2/sites-available/000-default.conf
 RUN echo "        AllowOverride All" >> /etc/apache2/sites-available/000-default.conf
 RUN echo "        Require all granted" >> /etc/apache2/sites-available/000-default.conf
+RUN echo "        RewriteEngine On" >> /etc/apache2/sites-available/000-default.conf
+RUN echo "        RewriteCond %{REQUEST_METHOD} OPTIONS" >> /etc/apache2/sites-available/000-default.conf
+RUN echo "        RewriteRule ^(.*)$ $1 [R=200,L]" >> /etc/apache2/sites-available/000-default.conf
 RUN echo "    </Directory>" >> /etc/apache2/sites-available/000-default.conf
+RUN echo "    # Configuración adicional para PHP" >> /etc/apache2/sites-available/000-default.conf
+RUN echo "    php_flag log_errors on"  >> /etc/apache2/sites-available/000-default.conf
+RUN echo "    php_value error_log /app/logs/error.log" >> /etc/apache2/sites-available/000-default.conf
+RUN echo "    php_flag display_errors on" >> /etc/apache2/sites-available/000-default.conf
 RUN echo "</VirtualHost>" >> /etc/apache2/sites-available/000-default.conf
-
+RUN a2enmod headers
 RUN a2enmod rewrite
 RUN a2ensite 000-default.conf
 # Start Apache service
-RUN chmod 0775 /app
 
 COPY ./90-quartup.ini /usr/local/etc/php/conf.d/
 
 # Expose ports
 EXPOSE ${HTTP_PORT} ${DEBUG_PORT}
+WORKDIR /app
