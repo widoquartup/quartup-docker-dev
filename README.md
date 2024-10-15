@@ -60,6 +60,10 @@
     
         ErrorLog /home/<nombre-usuario>/docker/error.log
         CustomLog /home/<nombre-usuario>/docker/access.log combined
+
+        ProxyPreserveHost On
+        RequestHeader set X-Forwarded-Proto "https"
+        RequestHeader set X-Forwarded-Port "443"
     
         ProxyPass / http://localhost:8198/           <<----- cambiar puerto
         ProxyPassReverse / http://localhost:8198/    <<----- cambiar puerto
