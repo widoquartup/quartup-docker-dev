@@ -1,4 +1,4 @@
-name: ${USER_NAME:-default}-project
+name: ${USER_NAME}-container
 services:
   php:
     build: 
