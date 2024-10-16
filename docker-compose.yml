@@ -1,4 +1,4 @@
-name: ${USER_NAME}-container
+name: docker-${USER_NAME}
 services:
   php:
     build: 
