@@ -48,7 +48,7 @@
 
 #### Si hacemos alguna modificación a la configuración del docker, podemos volver a generarlo con 
 
-    docker compose -p docker-<nombre-usuario> up -d --build
+    docker compose up -d --build
 
 #### Crear un archivo en el servidor para el vhost 
 
