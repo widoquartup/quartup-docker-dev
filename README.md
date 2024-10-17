@@ -44,7 +44,7 @@
     xdebug.remote_port=9198
 
 #### Para crear el docker ejecutar:
-    docker compose -p docker-<nombre-usuario> up -d
+    docker compose up -d
 
 #### Si hacemos alguna modificación a la configuración del docker, podemos volver a generarlo con 
 
