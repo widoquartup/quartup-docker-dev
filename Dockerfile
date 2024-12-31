@@ -54,10 +54,12 @@ RUN docker-php-ext-enable xdebug
 # RUN php composer.phar install
 
 
-# Configurar directorio de logs y permisos
-RUN mkdir -p /app/logs
-RUN touch /app/logs/error.log
-RUN touch /app/logs/xdebug.log
+# Crear directorio /app
+RUN mkdir -p /app
+
+
+# Crear usuario y grupo www-data
+# Establecer permisos
 RUN chown -R www-data:www-data /app
 RUN chmod -R 755 /app
 RUN chmod 664 /app/logs/error.log
