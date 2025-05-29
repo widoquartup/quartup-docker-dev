@@ -1,17 +1,16 @@
-name: docker-${USER_NAME}
+version: "3.8"
+
 services:
   php:
-    build: 
-      context: .
-      args:
-        HTTP_PORT: ${HTTP_PORT}
-        DEBUG_PORT: ${DEBUG_PORT}
-        USER_NAME: ${USER_NAME}
+    build: .
     ports:
-      - "0.0.0.0:${HTTP_PORT}:${HTTP_PORT}"
-      - "0.0.0.0:${DEBUG_PORT}:${DEBUG_PORT}"
+      - "8920:80"
+      - "9920:9003"
     volumes:
-      - ./dev:/app
-    container_name: docker-${USER_NAME}
+      - "../quartup:/app"
+      - "./90-quartup.ini:/usr/local/etc/php/conf.d/90-quartup.ini"
+      - "/home/jmmunoz/Desarrollo:/var/log/apache2"
+    container_name: "quartup-jmmunoz"
+    env_file:
+      - .env
     network_mode: host
-

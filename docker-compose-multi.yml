@@ -1,0 +1,46 @@
+name: docker-${USER_NAME}-multi
+services:
+  php-sendcloud:
+    build: 
+      context: .
+      args:
+        HTTP_PORT: 8920
+        DEBUG_PORT: 9920
+        USER_NAME: ${USER_NAME}
+    ports:
+      - "0.0.0.0:8920:8920"
+      - "0.0.0.0:9920:9920"
+    volumes:
+      - ../quartup-sendcloud:/app
+    container_name: docker-${USER_NAME}-sendcloud
+    network_mode: host
+    
+  php-invoicing:
+    build: 
+      context: .
+      args:
+        HTTP_PORT: 8921
+        DEBUG_PORT: 9921
+        USER_NAME: ${USER_NAME}
+    ports:
+      - "0.0.0.0:8921:8921"
+      - "0.0.0.0:9921:9921"
+    volumes:
+      - ../quartup-invoicing:/app
+    container_name: docker-${USER_NAME}-invoicing
+    network_mode: host
+    
+  php-main:
+    build: 
+      context: .
+      args:
+        HTTP_PORT: 8922
+        DEBUG_PORT: 9922
+        USER_NAME: ${USER_NAME}
+    ports:
+      - "0.0.0.0:8922:8922"
+      - "0.0.0.0:9922:9922"
+    volumes:
+      - ../quartup-main:/app
+    container_name: docker-${USER_NAME}-main
+    network_mode: host 

@@ -1,102 +1,132 @@
-#### Para la instalación, dentro de la carpeta de tu usuario hacer un clone del git 
+# 🐳 Quartup Docker Development Environment
 
-    git clone git@github.com:widoquartup/quartup-docker-dev.git
-    cd quartup-dev-docker
-    sudo chgrp www-data dev
+Entorno de desarrollo Docker moderno y flexible para el proyecto Quartup, con configuración centralizada y soporte para múltiples estilos de trabajo.
 
-#### Usaremos puertos distintos para cada usuario tanto en apache como en debug. 
-#### El Nº Usuario que podemos buscar en la ficha de nuestro usuario.
+## 🚀 Quick Start
 
-    Por ejemplo devgdo es el usuario 98
+```bash
+# 1. Clonar el repositorio
+git clone git@github.com:widoquartup/quartup-docker-dev.git
+cd quartup-docker-dev
 
-    Puerto http: 8198
-    Puerto debug: 9198
+# 2. Configurar tu entorno
+cp .env.example .env
+nano .env  # Personalizar con tus datos
 
-#### Modificar en el archivo ./.env
-    
-    HTTP_PORT=8198
-    DEBUG_PORT=9189
-    USER_NAME=devgdo   <<--modificar esta variable para que cada imagen y contenedor tenga su nombre
+# 3. Configurar modo de trabajo
+./setup-mode.sh single  # o 'multi' según tu preferencia
 
-#### Crear el archivo ./.vscode/launch.json
-    
-    {
-        "version": "0.2.0",
-        "configurations": [
-            {
-                "name": "1 Listen for Xdebug",
-                "type": "php",
-                "request": "launch",
-                "port": 9198, // <<<----- Cambiar por el código definido en el .env para debug
-                "pathMappings": {
-                    "/app/<nombre_rama>/": "${workspaceRoot}/dev/<nombre_rama>/"
-                }
-            }
-        ]
-    }
-    El ejemplo asume que estés navegando el código en tu visual studio code desde el directorio del docker, pero si has abierto el code desde la carpeta de la rama cambiar por 
-        "pathMappings": {
-            "/app/sendcloud/": "${workspaceRoot}/"
-        }
+# 4. Levantar el entorno
+docker compose up -d
+```
 
-#### Modificar el archivo ./90-quartup.ini en la línea donde define el puerto para xdebug
+¡Listo! Tu entorno estará disponible en `https://dev[tu-usuario].quartup.net`
 
-    xdebug.remote_port=9198
+## 📚 Documentación
 
-#### Para crear el docker ejecutar:
-    docker compose up -d
+### 🔧 [Configuración Centralizada](README-CONFIGURACION.md)
+- Sistema de variables con `.env`
+- Configuración personalizada por desarrollador
+- Setup automático de puertos y dominios
 
-#### Si hacemos alguna modificación a la configuración del docker, podemos volver a generarlo con 
+### 🤝 [Convivencia de Estilos](README-CONVIVENCIA.md)
+- Modo Single vs Multi
+- Comparación de flujos de trabajo
+- Casos de uso recomendados
 
-    docker compose up -d --build
+## 🎯 Características Principales
 
-#### Crear un archivo en el servidor para el vhost 
+- **🔧 Configuración Centralizada**: Todo en un archivo `.env`
+- **🔄 Modo Dual**: Trabaja en single o multi-directorio
+- **🚀 Setup Automático**: Scripts que configuran todo por ti
+- **🛡️ Sin Conflictos**: Cada desarrollador tiene su configuración
+- **📦 Zero Config**: Funciona out-of-the-box
 
-    etc/apache2/sites-available/docker-<nombre-usuario>.ssl.conf                                                                                          
+## 🔧 Variables Principales
 
-    <VirtualHost *:443>
-        ServerName docker-<nombre-usuario>.quartup.net
-        DocumentRoot /var/www/html
-    
-        ErrorLog /home/<nombre-usuario>/docker/error.log
-        CustomLog /home/<nombre-usuario>/docker/access.log combined
+Solo necesitas personalizar estas variables en tu `.env`:
 
-        ProxyPreserveHost On
-        RequestHeader set X-Forwarded-Proto "https"
-        RequestHeader set X-Forwarded-Port "443"
-    
-        ProxyPass / http://localhost:8198/           <<----- cambiar puerto
-        ProxyPassReverse / http://localhost:8198/    <<----- cambiar puerto
-    
-        SSLEngine on
-        SSLCertificateFile      /var/www/SSLCert/server.bundle
-        SSLCertificateKeyFile   /var/www/SSLCert/server.key
-    
-    </VirtualHost>
+```bash
+HTTP_PORT=8920          # Tu puerto HTTP único
+DEBUG_PORT=9920         # Tu puerto Xdebug único
+USER_NAME=jmmunoz       # Tu nombre de usuario
+SERVER_NAME=devjmm.quartup.net  # Tu dominio
+```
 
-#### Crear el archivo quartup.ini.php en el directorio dev
-    Crear una copia del archivo quptmp.ini.php con el nombre quartup.ini.php dentro del directorio dev
+## 🎮 Comandos Útiles
 
-#### Habilitar el vhost en el servidor de desarrollo
+### Cambiar Modo de Trabajo
+```bash
+./setup-mode.sh single    # Un directorio, cambio rápido de ramas
+./setup-mode.sh multi     # Múltiples directorios, ramas simultáneas
+```
 
-    sudo a2ensite docker-<nombre-usuario>.ssl.conf   
-    sudo service apache2 restart
+### Gestionar Ramas (modo multi)
+```bash
+./manage-branches.sh list
+./manage-branches.sh clone-from-main feature-nueva
+./manage-branches.sh remove rama-vieja
+```
 
-#### Acceso al subdominio
-    
-    Si no tienes registrado el subdominio docker-<nombre-usuario>.quartup.net puedes crear un acceso en tu ordenador en el archivo hosts
-        /etc/hosts (linux / mac)  
-        C:\Windows\System32\Drivers\etc\hosts (windows)
+### Docker
+```bash
+docker compose up -d           # Levantar
+docker compose down            # Parar
+docker compose up -d --build   # Rebuild
+```
 
-    # añadir una nueva línea
-    95.217.59.110 docker-<nombre-usuario>.quartup.net
+## 🆚 Modos de Trabajo
 
-#### Para comenzar a trabajar con alguna de las ramas:
+| Aspecto | Single Mode | Multi Mode |
+|---------|-------------|------------|
+| **Directorios** | `../quartup` → `/app` | `./dev/rama` → `/app` |
+| **URLs** | `devjmm.quartup.net` | `devjmm.quartup.net/rama` |
+| **Cambio rama** | `git checkout` | Navegar carpetas |
+| **Espacio disco** | ⭐⭐⭐ | ⭐⭐ |
+| **Aislamiento** | ⭐⭐ | ⭐⭐⭐ |
 
-    crear la/s rama/s dentro del directorio quartup-dev-docker/dev
+## 🛠️ Requisitos
 
-    cd dev
-    sv2 clone <nombre_rama> -d <nombre_rama>
-    cd <nombre_rama>
+- Docker & Docker Compose
+- Git configurado con acceso al repositorio
+- Puerto HTTP único (ej: 8920)
+- Puerto Debug único (ej: 9920)
 
-    Url de la rama: https://docker-<nombre-usuario>.quartup.net/<nombre_rama>
+## 🆘 Troubleshooting
+
+### Puerto en uso
+```bash
+# Cambiar puertos en .env
+HTTP_PORT=8930
+DEBUG_PORT=9930
+```
+
+### Xdebug no conecta
+```bash
+# Verificar configuración en .env
+XDEBUG_IDEKEY=tu-usuario
+DEBUG_PORT=9920
+```
+
+### Problemas de permisos
+```bash
+sudo chgrp www-data dev
+```
+
+## 🔗 Links Útiles
+
+- **Apache Config**: `/etc/apache2/sites-available/docker-[usuario].ssl.conf`
+- **Logs**: `/home/[usuario]/Desarrollo/`
+- **SSL Certs**: `/var/www/SSLCert/`
+
+## 🤖 Scripts Incluidos
+
+- `setup-mode.sh` - Configurar modo single/multi
+- `manage-branches.sh` - Gestionar ramas en modo multi
+- `setup-environment.sh` - Setup inicial completo
+
+---
+
+💡 **¿Primera vez?** Lee [README-CONFIGURACION.md](README-CONFIGURACION.md) para entender el sistema completo.
+
+🤝 **¿Trabajas en equipo?** Revisa [README-CONVIVENCIA.md](README-CONVIVENCIA.md) para workflows colaborativos.
